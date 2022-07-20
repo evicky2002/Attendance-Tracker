@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/miHome"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home">
+    </item>
+    <item android:id="@+id/miDashBoard"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="Dashboard">
+    </item>
+</menu>
