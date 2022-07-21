@@ -1,7 +1,11 @@
 package com.vignesh.attendancetracker
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.widget.FrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -9,6 +13,9 @@ import com.vignesh.attendancetracker.fragments.DashboardFragment
 import com.vignesh.attendancetracker.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var myApplication: GlobalStorage
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var homeFragment: HomeFragment
     private lateinit var dashboardFragment: DashboardFragment
     private lateinit var bottomNavigationView: BottomNavigationView

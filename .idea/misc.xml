@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_get_preferences.xml" value="0.22" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_login.xml" value="0.296195652173913" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_dashboard.xml" value="0.296195652173913" />

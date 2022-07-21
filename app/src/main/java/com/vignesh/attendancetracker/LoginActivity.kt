@@ -16,16 +16,23 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.vignesh.attendancetracker.dataModels.Semester
+import com.vignesh.attendancetracker.dataModels.Subject
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
     private val RC_SIGN_IN = 1
     private lateinit var mFirebaseAuth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private lateinit var mSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         mFirebaseAuth = FirebaseAuth.getInstance();
+        db = Firebase.firestore
         val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -61,7 +68,12 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.getIdToken(), null)
         mFirebaseAuth.signInWithCredential(credential)
             .addOnSuccessListener(this) { authResult: AuthResult? ->
-                startActivity(Intent(this, MainActivity::class.java))
+//                val user: FirebaseUser? = mFirebaseAuth.currentUser
+//                val map = mapOf<String,String>(
+//                    user?.uid.toString() to user?.email.toString()
+//                )
+//                db.collection("users").document(user?.uid.toString()).set(map)
+                startActivity(Intent(this, GetPreferences::class.java))
                 finish()
             }
             .addOnFailureListener(
