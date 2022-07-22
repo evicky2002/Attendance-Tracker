@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/miHome"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home">
+        android:icon="@drawable/ic_home">
     </item>
     <item android:id="@+id/miDashBoard"
-        android:icon="@drawable/ic_baseline_dashboard_24"
-        android:title="Dashboard">
+        android:icon="@drawable/ic_profile">
     </item>
 </menu>

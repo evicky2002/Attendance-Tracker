@@ -17,8 +17,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:elevation="25dp"
+        app:elevation="25dp"
+        android:background="@drawable/bottom_nav_bg"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

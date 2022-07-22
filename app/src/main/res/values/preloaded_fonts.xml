@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/archivo</item>
         <item>@font/archivo_black</item>
+        <item>@font/archivo_bold</item>
         <item>@font/montserrat_extrabold</item>
     </array>
 </resources>
