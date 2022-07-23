@@ -33,22 +33,25 @@ class GlobalStorage constructor(a: String, b: String): Application() {
         val han: android.os.Handler = android.os.Handler()
         this.currentDepartment = a
         this.currentSemester = b
-        loadStorage()
+        han.postDelayed(Runnable {
+            loadStorage()
+        },100)
         if(flag){
             Log.d(TAG,"Flag check")
-
             han.postDelayed(Runnable {
                 uploadUser()
-            },1000)
+            },2000)
         }else{
             han.postDelayed(Runnable {
                 getOldUser()
-            },2000)
+            },800)
         }
 
     }
 
     fun loadStorage(){
+        Log.d(TAG,"Flag check : Load")
+
         db.collection("departments").document(currentDepartment).collection("semesters")
             .document(currentSemester).collection("subjects")
             .get()
@@ -89,7 +92,6 @@ class GlobalStorage constructor(a: String, b: String): Application() {
             userObject
         )
             .addOnSuccessListener { result ->
-//                Log.d(TAG,"Uploaded"+userObject.subjectsList.toString())
                 Log.d(TAG,"Uploaded new user : finished")
 
             }
@@ -102,18 +104,13 @@ class GlobalStorage constructor(a: String, b: String): Application() {
         var list: ArrayList<NewSubject> = ArrayList()
         db.collection("users").document(user?.uid.toString()).get()
             .addOnSuccessListener { result ->
-//                Log.d(TAG,"Im hwewe again"+result.toString())
-
                 var array: ArrayList<NewSubject> = result.get("subjectsList") as ArrayList<NewSubject> /* = java.util.ArrayList<com.vignesh.attendancetracker.dataModels.NewSubject> */
                 for(i in 0..array.size-1){
                     val map: Map<String,String> = array[i] as Map<String, String>
-//                    Log.d(TAG,"Im here again :   "+array)
-
                     list.add(NewSubject(map.get("subjectCode").toString(),map.get("subjectCredits").toString()
                         ,map.get("subjectName").toString(),map.get("subjectTotalHours").toString(),map.get("totalAbsentCount").toString()))
                 }
                 userObject = User(list)
-//                Log.d(TAG,"Im hwewe again"+userObject.toString())
                 Log.d(TAG,"Got old user : finished")
 
             }
@@ -122,26 +119,4 @@ class GlobalStorage constructor(a: String, b: String): Application() {
             }
 
     }
-    fun refreshUser(){
-        val user: FirebaseUser? = mFirebaseAuth.currentUser
-        db.collection("users").document(user?.uid.toString())
-            .get()
-            .addOnSuccessListener { result ->
-                var array: ArrayList<NewSubject> = result.get("subjectsList") as ArrayList<NewSubject> /* = java.util.ArrayList<com.vignesh.attendancetracker.dataModels.NewSubject> */
-                for(i in 0..array.size-1){
-                    Log.d(TAG,"her"+userObject.subjectsList.get(i).subjectTotalHours)
-                    val map: Map<String,String> = array[i] as Map<String, String>
-                    val totalAbsentCount = map.get("totalAbsentCount")
-
-                    userObject.subjectsList.get(i).subjectTotalHours =totalAbsentCount.toString()
-                }
-                Log.d(TAG,"user : "+userObject.subjectsList.toString())
-
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG,"Failure")
-            }
-    }
-
-
 }

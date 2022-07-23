@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AttendanceTracker"
         tools:targetApi="31">
         <activity
-            android:name=".GetPreferences"
+            android:name=".GetPreferencesActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

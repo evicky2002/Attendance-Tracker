@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.button.MaterialButton
+import com.vignesh.attendancetracker.GlobalStorage
 import com.vignesh.attendancetracker.MainActivity
 import com.vignesh.attendancetracker.R
 
 class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnClickListener {
+    private var myApplication: GlobalStorage? = null
     private var TAG = "GetSemesterFragment"
     private var btnSemOne: MaterialButton? = null
     private var btnSemTwo: MaterialButton? = null
@@ -65,6 +68,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.btnSemOne -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemOne?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemOne?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -86,6 +91,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
 
             }
             R.id.btnSemTwo -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemTwo?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemTwo?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -106,6 +113,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterTwo"
             }
             R.id.btnSemThree -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemThree?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemThree?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -127,6 +136,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterThree"
             }
             R.id.btnSemFour -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemFour?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemFour?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -147,6 +158,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterFour"
             }
             R.id.btnSemFive -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemFive?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemFive?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -167,6 +180,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterFive"
             }
             R.id.btnSemSix -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemSix?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemSix?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -187,6 +202,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterSix"
             }
             R.id.btnSemSeven -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemSeven?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemSeven?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -207,6 +224,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterSeven"
             }
             R.id.btnSemEight -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnSemEight?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnSemEight?.setTextColor(getResources().getColor(R.color.project_green))
 
@@ -228,6 +247,8 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                 isPressed = "semesterEight"
             }
             R.id.btnNext -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 if(isPressed.equals(null)){
                     Toast.makeText(activity,"Please select your Semester", Toast.LENGTH_LONG).show()
                 }else{
@@ -237,6 +258,7 @@ class GetSemesterFragment : Fragment(R.layout.fragment_get_semester), View.OnCli
                             editor.commit()
                             startActivity(Intent(requireActivity(), MainActivity::class.java))
                             requireActivity().finish()
+
                         }"semesterTwo" -> {
                             editor.putString("SEMESTER",isPressed)
                             editor.commit()

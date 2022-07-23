@@ -23,4 +23,9 @@
         <item name="background">@drawable/normal_button</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="Calendar" parent="@style/Widget.MaterialComponents.MaterialCalendar">
+        <item name="background">@color/white</item>
+        <item name="android:dateTextAppearance">@color/black</item>
+    </style>
+
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/project_blue"
     android:layout_height="match_parent"
-    tools:context=".GetPreferences">
+    tools:context=".GetPreferencesActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

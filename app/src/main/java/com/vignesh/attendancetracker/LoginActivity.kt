@@ -4,8 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.view.WindowManager
+import android.view.HapticFeedbackConstants
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -15,7 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.card.MaterialCardView
@@ -26,8 +24,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vignesh.attendancetracker.dataModels.Semester
-import com.vignesh.attendancetracker.dataModels.Subject
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
@@ -51,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         mSignInClient = GoogleSignIn.getClient(this,gso)
         val btnSignIn = findViewById<MaterialCardView>(R.id.btnSignIn)
         btnSignIn.setOnClickListener{
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             signIn()
         }
 
@@ -87,12 +84,7 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.getIdToken(), null)
         mFirebaseAuth.signInWithCredential(credential)
             .addOnSuccessListener(this) { authResult: AuthResult? ->
-//                val user: FirebaseUser? = mFirebaseAuth.currentUser
-//                val map = mapOf<String,String>(
-//                    user?.uid.toString() to user?.email.toString()
-//                )
-//                db.collection("users").document(user?.uid.toString()).set(map)
-                startActivity(Intent(this, GetPreferences::class.java))
+                startActivity(Intent(this, GetPreferencesActivity::class.java))
                 finish()
             }
             .addOnFailureListener(

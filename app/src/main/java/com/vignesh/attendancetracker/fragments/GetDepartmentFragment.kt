@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -46,6 +47,8 @@ class GetDepartmentFragment : Fragment(R.layout.fragment_get_department), View.O
         isPressed?.let { it1 -> Log.d(TAG, it1) }
         when(view?.id){
             R.id.btnCSE -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnCSE?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnCSE?.setTextColor(getResources().getColor(R.color.project_blue))
 
@@ -58,6 +61,8 @@ class GetDepartmentFragment : Fragment(R.layout.fragment_get_department), View.O
                 isPressed = "CSE"
             }
             R.id.btnECE -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnECE?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnECE?.setTextColor(getResources().getColor(R.color.project_blue))
 
@@ -70,6 +75,8 @@ class GetDepartmentFragment : Fragment(R.layout.fragment_get_department), View.O
                 isPressed = "ECE"
             }
             R.id.btnEEE -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnEEE?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnEEE?.setTextColor(getResources().getColor(R.color.project_blue))
 
@@ -82,6 +89,8 @@ class GetDepartmentFragment : Fragment(R.layout.fragment_get_department), View.O
                 isPressed = "EEE"
             }
             R.id.btnMECH -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 btnMECH?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white))
                 btnMECH?.setTextColor(getResources().getColor(R.color.project_blue))
 
@@ -95,6 +104,8 @@ class GetDepartmentFragment : Fragment(R.layout.fragment_get_department), View.O
                 isPressed = "MECH"
             }
             R.id.btnNext -> {
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+
                 if(isPressed.equals(null)){
                     Toast.makeText(activity,"Please select your Department",Toast.LENGTH_LONG).show()
                 }else{
