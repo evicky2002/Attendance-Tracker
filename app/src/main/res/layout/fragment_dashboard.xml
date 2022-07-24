@@ -44,7 +44,7 @@
             android:backgroundTint="@color/project_blue"
             android:text="Sign Out"
             app:cornerRadius="30dp"
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

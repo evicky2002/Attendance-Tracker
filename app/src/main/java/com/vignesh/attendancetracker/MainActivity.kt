@@ -7,6 +7,7 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                     commit()
                     tvWait?.visibility = View.INVISIBLE
                     progressBar?.setVisibility(View.GONE);
-                }},2000
+                }},2700
         )
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){

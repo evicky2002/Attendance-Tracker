@@ -39,7 +39,7 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
         Log.d(TAG,totalAbsentCount.toString())
         Log.d(TAG,remainingHours.toString())
         Log.d(TAG,percentage.toString())
-        var roundedPercentage = String.format("%.1f", percentage).toDouble()
+        var roundedPercentage = percentage.toInt()
         holder.dataCard?.setBackgroundColor(ContextCompat.getColor(context, R.color.project_yellow))
 
         if(roundedPercentage < 75.0){

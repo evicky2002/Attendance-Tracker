@@ -15,7 +15,7 @@
         <!-- Customize your theme here. -->
   	<item name="android:windowLayoutInDisplayCutoutMode">
     shortEdges
-  </item>
+    </item>
         <item name="android:windowBackground">@color/project_dark_blue</item>
     </style>
 

@@ -44,7 +44,7 @@ class GlobalStorage constructor(a: String, b: String): Application() {
         }else{
             han.postDelayed(Runnable {
                 getOldUser()
-            },800)
+            },2200)
         }
 
     }

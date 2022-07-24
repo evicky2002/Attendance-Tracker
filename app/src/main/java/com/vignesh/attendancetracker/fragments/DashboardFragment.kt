@@ -28,6 +28,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val userObject = GlobalStorage.userObject
+        Log.d(TAG,userObject.toString())
         rvDataCard = view.findViewById(R.id.rvDataCard)
         val subjectDataCardAdapter = SubjectDataCardAdapter(userObject.subjectsList,requireContext())
         rvDataCard?.setHasFixedSize(true)
@@ -54,7 +55,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             percentageTotal+=perc
         }
         val percentage : Double = percentageTotal/n.toDouble()
-        val roundedPercentage = String.format("%.1f", percentage).toDouble()
+        val roundedPercentage = percentage.toInt()
         tvTotalPercentage?.text = "$roundedPercentage%"
 
     }
