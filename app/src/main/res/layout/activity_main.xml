@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -33,43 +34,47 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <TextView
+        android:id="@+id/tvWait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please \nStand \nBy"
+        android:gravity="center_horizontal"
+        android:textSize="32sp"
+        android:fontFamily="@font/archivo_black"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </TextView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-
         android:layout_height="70dp"
         android:layout_margin="16dp"
         app:cardCornerRadius="25dp"
-        app:cardElevation="25dp"
+        app:cardElevation="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            >
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:itemIconSize="42dp"
-                app:itemIconTint="@color/project_blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:menu="@menu/bottom_navigation_menu">
-
-            </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:itemIconSize="42dp"
+            app:itemIconTint="@drawable/bottom_nav_item_color"
+            android:theme="@style/CustomTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/bottom_navigation_menu">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </com.google.android.material.card.MaterialCardView>
 
 

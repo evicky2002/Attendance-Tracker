@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/bottom_nav_bg.xml" value="0.2125" />
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/bottom_nav_color.xml" value="0.2115" />
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/bottom_nav_item_color.xml" value="0.2115" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/ic_home.xml" value="0.2125" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/ic_profile.xml" value="0.2125" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/normal_button.xml" value="0.2125" />

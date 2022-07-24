@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/archivo_black"
         android:text="Sign In With Google"
-        android:textColor="#151515"
+        android:theme="@style/TextStyle"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
