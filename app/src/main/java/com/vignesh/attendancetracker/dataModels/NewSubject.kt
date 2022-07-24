@@ -7,5 +7,6 @@ data class NewSubject(
     var subjectCredits : String,
     var subjectName : String,
     var subjectTotalHours : String,
-    var totalAbsentCount: String
+    var totalAbsentCount: String,
+    var dateTracker: ArrayList<Map<String,String>>?
 ): Serializable

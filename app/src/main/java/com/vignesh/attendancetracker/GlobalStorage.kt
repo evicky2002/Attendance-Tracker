@@ -84,7 +84,8 @@ class GlobalStorage constructor(a: String, b: String): Application() {
                 subjectCredits = i.subjectCredits,
                 subjectName = i.subjectName,
                 subjectTotalHours = i.subjectTotalHours,
-                totalAbsentCount = "0"
+                totalAbsentCount = "0",
+                dateTracker = ArrayList()
             ))
         }
         userObject = User(list)
@@ -107,8 +108,11 @@ class GlobalStorage constructor(a: String, b: String): Application() {
                 var array: ArrayList<NewSubject> = result.get("subjectsList") as ArrayList<NewSubject> /* = java.util.ArrayList<com.vignesh.attendancetracker.dataModels.NewSubject> */
                 for(i in 0..array.size-1){
                     val map: Map<String,String> = array[i] as Map<String, String>
+                    val date = map.get("dateTracker") as ArrayList<Map<String,String>>
+                    Log.d(TAG,date.toString())
+
                     list.add(NewSubject(map.get("subjectCode").toString(),map.get("subjectCredits").toString()
-                        ,map.get("subjectName").toString(),map.get("subjectTotalHours").toString(),map.get("totalAbsentCount").toString()))
+                        ,map.get("subjectName").toString(),map.get("subjectTotalHours").toString(),map.get("totalAbsentCount").toString(),date))
                 }
                 userObject = User(list)
                 Log.d(TAG,"Got old user : finished")

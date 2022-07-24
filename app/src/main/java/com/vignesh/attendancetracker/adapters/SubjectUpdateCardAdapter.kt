@@ -20,6 +20,9 @@ import com.vignesh.attendancetracker.GlobalStorage
 import com.vignesh.attendancetracker.R
 import com.vignesh.attendancetracker.dataModels.NewSubject
 import com.vignesh.attendancetracker.dataModels.User
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private var context: Context) : RecyclerView.Adapter<SubjectUpdateCardAdapter.ViewHolder>() {
     private var TAG = "SubjectUpdateCardAdapter"
@@ -54,15 +57,24 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             var count = userObject.subjectsList.get(position).totalAbsentCount.toInt()
             count+=temp
+            if(temp>0){
+                val map = mapOf<String,String>(temp.toString() to getCurrentDate())
+                userObject.subjectsList.get(position).dateTracker?.add(map)
+            }
             userObject.subjectsList.get(position).totalAbsentCount = count.toString()
             holder.tvSubjectCardCount?.text = "0"
             db.collection("users").document(user?.uid.toString())
                 .update("subjectsList",userObject.subjectsList).addOnCompleteListener {
                     Toast.makeText(context,"Updated",Toast.LENGTH_SHORT).show()
+                    Log.d(TAG,userObject.toString())
 
                 }
         }
 
+    }
+    fun getCurrentDate():String{
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        return sdf.format(Date())
     }
     override fun getItemCount(): Int {
         return mList.size
