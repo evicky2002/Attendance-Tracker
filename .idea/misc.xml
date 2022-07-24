@@ -11,12 +11,12 @@
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/drawable/rv_bg.xml" value="0.2125" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_get_preferences.xml" value="0.16" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/custom_item.xml" value="0.296195652173913" />
-        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_get_department.xml" value="0.25" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_get_semester.xml" value="0.296195652173913" />
-        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/fragment_home.xml" value="0.24157303370786518" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/subject_data_card.xml" value="0.25" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/layout/subject_data_update_card.xml" value="0.33" />
         <entry key="..\:/Users/evick/AndroidStudioProjects/AttendanceTracker/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33177083333333335" />

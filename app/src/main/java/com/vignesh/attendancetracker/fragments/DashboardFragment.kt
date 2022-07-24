@@ -21,6 +21,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     private var rvDataCard: RecyclerView? = null
     private lateinit var mFirebaseAuth: FirebaseAuth
     private var tvSignOut: TextView? = null
+    private var tvTotalPercentage: TextView? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val userObject = GlobalStorage.userObject
@@ -32,11 +33,26 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         Log.d(TAG,userObject.toString())
         mFirebaseAuth = FirebaseAuth.getInstance()
         tvSignOut = view.findViewById(R.id.tvSignout)
+        tvTotalPercentage = view.findViewById(R.id.tvTotalPercentage)
         tvSignOut?.setOnClickListener{
             mFirebaseAuth.signOut()
             val logout = Intent(view.context,LoginActivity::class.java)
             logout.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(logout)
         }
+        var percentageTotal :Double= 0.0
+        var n = 0
+        for(i in userObject.subjectsList){
+            n++
+            var total = i.subjectTotalHours.toInt()
+            var absent = i.totalAbsentCount.toInt()
+            var rem = total-absent
+            val perc : Double= (rem.toDouble()/total.toDouble())*100
+            percentageTotal+=perc
+        }
+        val percentage : Double = percentageTotal/n.toDouble()
+        val roundedPercentage = String.format("%.1f", percentage).toDouble()
+        tvTotalPercentage?.text = "$roundedPercentage%"
+
     }
 }

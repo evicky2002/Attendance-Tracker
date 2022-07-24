@@ -37,11 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         progressBar = findViewById(R.id.progressBar)
         progressBar?.setVisibility(View.VISIBLE);
-//        progressBar?.setMessage("Loading");
-//        progressBar?.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progressBar?.setProgress(0);
-//        progressBar?.setMax(100);
-//        progressBar?.show();
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         homeFragment = HomeFragment()
         dashboardFragment = DashboardFragment()
