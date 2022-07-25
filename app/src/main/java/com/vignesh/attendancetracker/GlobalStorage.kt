@@ -14,6 +14,8 @@ import com.vignesh.attendancetracker.dataModels.NewSubject
 import com.vignesh.attendancetracker.dataModels.Semester
 import com.vignesh.attendancetracker.dataModels.Subject
 import com.vignesh.attendancetracker.dataModels.User
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 import java.util.logging.Handler
 
 class GlobalStorage constructor(a: String, b: String): Application() {
@@ -48,7 +50,6 @@ class GlobalStorage constructor(a: String, b: String): Application() {
         }
 
     }
-
     fun loadStorage(){
         Log.d(TAG,"Flag check : Load")
 

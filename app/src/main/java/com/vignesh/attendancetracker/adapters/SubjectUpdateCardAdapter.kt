@@ -60,7 +60,7 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
             if(temp>0){
                 for(i in 1..temp){
                     val map = mapOf<String,String>("1" to getCurrentDate())
-                    userObject.subjectsList.get(position).dateTracker?.add(map)
+                    GlobalStorage.userObject.subjectsList.get(position).dateTracker?.add(map)
                 }
             }else if(temp<0){
                 val pos = temp + (temp*-2)
@@ -68,7 +68,7 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
                 Log.d(TAG,"pos : ${pos.toString()}")
                 Log.d(TAG,"size : ${userObject.subjectsList.get(position).dateTracker?.size as Int}")
                 for (i in pos downTo 1){
-                    userObject.subjectsList.get(position).dateTracker
+                    GlobalStorage.userObject.subjectsList.get(position).dateTracker
                         ?.removeAt((userObject.subjectsList.get(position).dateTracker?.size as Int) - 1)
                 }
             }
