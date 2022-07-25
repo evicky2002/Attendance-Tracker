@@ -7,6 +7,7 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.ProgressBar
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         homeFragment = HomeFragment()
         dashboardFragment = DashboardFragment()
         sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE)
+        Log.d("GlobalStorage","From Mainactivity")
         GlobalStorage.flag = false
         myApplication = GlobalStorage(sharedPreferences.getString("DEPARTMENT","hi") as String, sharedPreferences.getString("SEMESTER","hi") as String)
         val han:Handler = Handler()
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                     commit()
                     tvWait?.visibility = View.INVISIBLE
                     progressBar?.setVisibility(View.GONE);
-                }},2700
+                }},3000
         )
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){

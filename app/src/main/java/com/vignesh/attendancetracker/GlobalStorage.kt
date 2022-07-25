@@ -35,28 +35,23 @@ class GlobalStorage constructor(a: String, b: String): Application() {
         val han: android.os.Handler = android.os.Handler()
         this.currentDepartment = a
         this.currentSemester = b
-        han.postDelayed(Runnable {
-            loadStorage()
-        },100)
         if(flag){
-            Log.d(TAG,"Flag check")
-            han.postDelayed(Runnable {
-                uploadUser()
-            },2000)
+            loadStorage()
         }else{
-            han.postDelayed(Runnable {
-                getOldUser()
-            },2200)
+            han.postDelayed(
+                Runnable {
+                    getOldUser()
+                },2000
+            )
         }
-
     }
     fun loadStorage(){
-        Log.d(TAG,"Flag check : Load")
-
+        Log.d(TAG,"Load Storage : Started")
         db.collection("departments").document(currentDepartment).collection("semesters")
             .document(currentSemester).collection("subjects")
             .get()
             .addOnSuccessListener { result ->
+                Log.d(TAG,"Load Storage : Result Obtained")
                 var list: ArrayList<Subject> = ArrayList()
                 for(i in result){
                     list.add(
@@ -68,8 +63,10 @@ class GlobalStorage constructor(a: String, b: String): Application() {
                         )
                     )
                 }
+                Log.d(TAG,"Load Storage : Your algorithm")
                 semester = Semester(list)
-                Log.d(TAG,"Semester : "+semester.toString())
+                Log.d(TAG,"Load Storage : Finished")
+                uploadUser()
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG,"Failure")
@@ -77,6 +74,7 @@ class GlobalStorage constructor(a: String, b: String): Application() {
     }
 
     fun uploadUser(){
+        Log.d(TAG,"Upload user : Started")
         val user: FirebaseUser? = mFirebaseAuth.currentUser
         var list: ArrayList<NewSubject> = ArrayList()
         for(i in semester.subjectsList){
@@ -94,14 +92,14 @@ class GlobalStorage constructor(a: String, b: String): Application() {
             userObject
         )
             .addOnSuccessListener { result ->
-                Log.d(TAG,"Uploaded new user : finished")
-
+                Log.d(TAG,"Upload user : Finished")
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG,"Failure")
             }
     }
     fun getOldUser(){
+        Log.d(TAG,"Get old user : Started")
         val user: FirebaseUser? = mFirebaseAuth.currentUser
         var list: ArrayList<NewSubject> = ArrayList()
         db.collection("users").document(user?.uid.toString()).get()
@@ -110,13 +108,11 @@ class GlobalStorage constructor(a: String, b: String): Application() {
                 for(i in 0..array.size-1){
                     val map: Map<String,String> = array[i] as Map<String, String>
                     val date = map.get("dateTracker") as ArrayList<Map<String,String>>
-                    Log.d(TAG,date.toString())
-
                     list.add(NewSubject(map.get("subjectCode").toString(),map.get("subjectCredits").toString()
                         ,map.get("subjectName").toString(),map.get("subjectTotalHours").toString(),map.get("totalAbsentCount").toString(),date))
                 }
                 userObject = User(list)
-                Log.d(TAG,"Got old user : finished")
+                Log.d(TAG,"Get old user : finished")
 
             }
             .addOnFailureListener { exception ->
