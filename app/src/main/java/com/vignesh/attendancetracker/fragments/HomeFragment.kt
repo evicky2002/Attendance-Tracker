@@ -27,7 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var myApplication: GlobalStorage
     private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "HomeFragment"
-    private lateinit var userObject: User
+    private var userObject: User? = null
     private var rvSubjectList: RecyclerView? = null
     private lateinit var db: FirebaseFirestore
     private var user: FirebaseUser? = null
@@ -40,7 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rvSubjectList = view.findViewById(R.id.rvSubjectList)
         db = Firebase.firestore
         userObject = GlobalStorage.userObject
-        val subjectUpdateCardAdapter = SubjectUpdateCardAdapter(userObject.subjectsList, requireContext())
+        val subjectUpdateCardAdapter = SubjectUpdateCardAdapter(userObject!!.subjectsList, requireContext())
         rvSubjectList?.setHasFixedSize(true)
         rvSubjectList?.layoutManager = GridLayoutManager(requireContext(),2)
         rvSubjectList?.adapter = subjectUpdateCardAdapter

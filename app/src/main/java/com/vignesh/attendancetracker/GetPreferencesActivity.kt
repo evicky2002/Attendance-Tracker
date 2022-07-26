@@ -48,9 +48,8 @@ class GetPreferencesActivity : AppCompatActivity() {
     }
 
     override fun finish() {
-        Log.d(TAG,"finish")
         GlobalStorage.flag = true
-        myApplication = GlobalStorage(sharedPreferences.getString("DEPARTMENT","hi") as String, sharedPreferences.getString("SEMESTER","hi") as String)
+        Log.d(TAG,"finish")
         super.finish()
     }
 

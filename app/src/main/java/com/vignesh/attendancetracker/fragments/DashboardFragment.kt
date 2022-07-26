@@ -30,7 +30,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         val userObject = GlobalStorage.userObject
         Log.d(TAG,userObject.toString())
         rvDataCard = view.findViewById(R.id.rvDataCard)
-        val subjectDataCardAdapter = SubjectDataCardAdapter(userObject.subjectsList,requireContext())
+        val subjectDataCardAdapter = SubjectDataCardAdapter(userObject!!.subjectsList,requireContext())
         rvDataCard?.setHasFixedSize(true)
         rvDataCard?.layoutManager = GridLayoutManager(requireContext(),2)
         rvDataCard?.adapter = subjectDataCardAdapter
@@ -46,7 +46,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
         var percentageTotal :Double= 0.0
         var n = 0
-        for(i in userObject.subjectsList){
+        for(i in userObject!!.subjectsList){
             n++
             var total = i.subjectTotalHours.toInt()
             var absent = i.totalAbsentCount.toInt()

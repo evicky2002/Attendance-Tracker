@@ -28,7 +28,7 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
     private var TAG = "SubjectUpdateCardAdapter"
     private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var user: FirebaseUser? = mFirebaseAuth.currentUser
-    private var userObject: User = GlobalStorage.userObject
+    private var userObject: User? = GlobalStorage.userObject
     private var db: FirebaseFirestore = Firebase.firestore
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -55,21 +55,21 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
         }
         holder.btnUpdate?.setOnClickListener{
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            var count = userObject.subjectsList.get(position).totalAbsentCount.toInt()
-            count+=temp
+            var count = userObject?.subjectsList?.get(position)?.totalAbsentCount?.toInt()
+            count = count?.plus(temp)
             if(temp>0){
                 for(i in 1..temp){
                     val map = mapOf<String,String>("1" to getCurrentDate())
-                    GlobalStorage.userObject.subjectsList.get(position).dateTracker?.add(map)
+                    GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker?.add(map)
                 }
             }else if(temp<0){
                 val pos = temp + (temp*-2)
                 Log.d(TAG,"here")
                 Log.d(TAG,"pos : ${pos.toString()}")
-                Log.d(TAG,"size : ${userObject.subjectsList.get(position).dateTracker?.size as Int}")
+                Log.d(TAG,"size : ${userObject?.subjectsList?.get(position)?.dateTracker?.size as Int}")
                 for (i in pos downTo 1){
-                    GlobalStorage.userObject.subjectsList.get(position).dateTracker
-                        ?.removeAt((userObject.subjectsList.get(position).dateTracker?.size as Int) - 1)
+                    GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker
+                        ?.removeAt((userObject!!.subjectsList.get(position).dateTracker?.size as Int) - 1)
                 }
             }
 
@@ -77,13 +77,12 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
 //                val map = mapOf<String,String>(temp.toString() to getCurrentDate())
 //                userObject.subjectsList.get(position).dateTracker?.add(map)
 //            }
-            GlobalStorage.userObject.subjectsList.get(position).totalAbsentCount = count.toString()
+            GlobalStorage.userObject?.subjectsList?.get(position)?.totalAbsentCount = count.toString()
             holder.tvSubjectCardCount?.text = "0"
             db.collection("users").document(user?.uid.toString())
-                .update("subjectsList",userObject.subjectsList).addOnCompleteListener {
+                .update("subjectsList",userObject?.subjectsList).addOnCompleteListener {
                     Toast.makeText(context,"Updated",Toast.LENGTH_SHORT).show()
                     Log.d(TAG,userObject.toString())
-
                 }
         }
 

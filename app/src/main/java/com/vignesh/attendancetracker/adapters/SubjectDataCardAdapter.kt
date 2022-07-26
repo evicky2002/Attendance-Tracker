@@ -29,8 +29,8 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvSubjectDataCardName?.text = userObject.subjectsList.get(position).subjectName
-        holder.tvSubjectDataCount?.text = userObject.subjectsList.get(position).totalAbsentCount
+        holder.tvSubjectDataCardName?.text = userObject?.subjectsList?.get(position)?.subjectName
+        holder.tvSubjectDataCount?.text = userObject?.subjectsList?.get(position)?.totalAbsentCount
         var totalHours = mList.get(position).subjectTotalHours.toInt()
         var totalAbsentCount = mList.get(position).totalAbsentCount.toInt()
         var remainingHours = (totalHours - totalAbsentCount)

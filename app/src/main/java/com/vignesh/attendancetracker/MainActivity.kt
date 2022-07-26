@@ -1,38 +1,45 @@
 package com.vignesh.attendancetracker
 
-import android.app.ProgressDialog
-import android.content.Context
-import android.content.SharedPreferences
-import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.firebase.ui.auth.ui.ProgressView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.vignesh.attendancetracker.dataModels.Semester
+import com.vignesh.attendancetracker.dataModels.User
 import com.vignesh.attendancetracker.fragments.DashboardFragment
 import com.vignesh.attendancetracker.fragments.HomeFragment
-import java.security.AccessController.getContext
+import com.vignesh.attendancetracker.networkActivity.NetworkService
 
 
 class MainActivity : AppCompatActivity() {
+    private var TAG = "NetworkService"
+
+    private var networkService = NetworkService(this)
+
+    private lateinit var myApplication: GlobalStorage
+    private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var db: FirebaseFirestore = Firebase.firestore
+
+
+    private var semesterObject: Semester? = null
+    private var userObject: com.vignesh.attendancetracker.dataModels.User? = null
+
     var progressBar: ProgressBar? = null
     private var tvWait:TextView? = null
     private var bottom:MaterialCardView? = null
-    private lateinit var myApplication: GlobalStorage
-    private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var homeFragment: HomeFragment
     private lateinit var dashboardFragment: DashboardFragment
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -48,27 +55,60 @@ class MainActivity : AppCompatActivity() {
         progressBar?.setVisibility(View.VISIBLE);
         tvWait?.visibility = View.VISIBLE
         bottom?.visibility = View.INVISIBLE
-
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottom?.visibility = View.INVISIBLE
         homeFragment = HomeFragment()
         dashboardFragment = DashboardFragment()
-        sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE)
-        Log.d("GlobalStorage","From Mainactivity")
-        GlobalStorage.flag = false
-        myApplication = GlobalStorage(sharedPreferences.getString("DEPARTMENT","hi") as String, sharedPreferences.getString("SEMESTER","hi") as String)
-        val han:Handler = Handler()
-        han.postDelayed(
-            Runnable {
-                supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.flFragment,homeFragment)
-                    commit()
-                    bottom?.visibility = View.VISIBLE
-                    bottom?.visibility = View.VISIBLE
-                    tvWait?.visibility = View.INVISIBLE
-                    progressBar?.setVisibility(View.GONE);
-                }},3000
-        )
+
+        if(GlobalStorage.flag){
+            networkService.loadStorage(object : NetworkService.LoadStorageListener{
+                override fun onResponse(response: Semester?) {
+                    semesterObject = response
+                    networkService.updateUser(semesterObject,object : NetworkService.UploadUserListener{
+                        override fun onResponse(response: User?) {
+                            userObject = response
+                            GlobalStorage.userObject = userObject
+                            GlobalStorage.flag = false
+                            logic()
+                        }
+                        override fun onError(placeholder: String?) {
+                            Log.d(TAG,"Error update user")
+                        }
+
+                    })
+                }
+
+                override fun onError(placeholder: String?) {
+                    Log.d(TAG,"Error in load storage")
+                }
+
+            })
+        }else{
+            networkService.getOldUser(object : NetworkService.GetOldUserListener{
+                override fun onResponse(response: User?) {
+                    userObject = response
+                    GlobalStorage.userObject = userObject
+                    logic()
+                }
+
+                override fun onError(placeholder: String?) {
+                    Log.d(TAG,"Error in get old user")
+                }
+
+            })
+        }
+    }
+
+
+    private fun logic(){
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,homeFragment)
+            commit()
+            bottom?.visibility = View.VISIBLE
+            bottom?.visibility = View.VISIBLE
+            tvWait?.visibility = View.INVISIBLE
+            progressBar?.setVisibility(View.GONE);
+        }
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.miHome ->{
@@ -88,8 +128,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
+
+
+
     private fun hideSystemBars() {
         val windowInsetsController =
             ViewCompat.getWindowInsetsController(window.decorView) ?: return
