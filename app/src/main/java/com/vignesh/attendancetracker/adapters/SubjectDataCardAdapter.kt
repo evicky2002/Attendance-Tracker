@@ -1,9 +1,10 @@
 package com.vignesh.attendancetracker.adapters
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
 import com.vignesh.attendancetracker.GlobalStorage
 import com.vignesh.attendancetracker.R
 import com.vignesh.attendancetracker.dataModels.NewSubject
@@ -29,6 +29,9 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val myDialog: Dialog = Dialog(context)
+        myDialog.setContentView(R.layout.history_dialog)
+        myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         holder.tvSubjectDataCardName?.text = userObject?.subjectsList?.get(position)?.subjectName
         holder.tvSubjectDataCount?.text = userObject?.subjectsList?.get(position)?.totalAbsentCount
         var totalHours = mList.get(position).subjectTotalHours.toInt()
@@ -50,6 +53,21 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
             holder.dataCard?.setBackgroundColor(ContextCompat.getColor(context, R.color.project_green))
         }
         holder.tvSubjectDataPercentage?.text = "$roundedPercentage%"
+        val array = userObject?.subjectsList?.get(position)?.dateTracker
+        if(array!!.isNotEmpty()){
+            holder.dataCard?.setOnClickListener{
+                var string = ""
+                val tvDates = myDialog.findViewById<TextView>(R.id.tvDates)
+                for(i in array){
+                    val map = i
+                    string+="\n\n"
+                    string+=i.getValue(1.toString())
+                }
+                tvDates.text = string
+                myDialog.show()
+
+            }
+        }
 
 
     }
@@ -62,7 +80,7 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
         var tvSubjectDataPercentage : TextView? = null
         var dataCard : ConstraintLayout? = null
         init{
-            tvSubjectDataCardName = ItemView.findViewById(R.id.tvSubjectDataCardName)
+            tvSubjectDataCardName = ItemView.findViewById(R.id.tvDates)
             tvSubjectDataCount = ItemView.findViewById(R.id.tvSubjectDataCount)
             tvSubjectDataPercentage = ItemView.findViewById(R.id.tvSubjectDataPercentage)
             dataCard = ItemView.findViewById(R.id.dataCard)
