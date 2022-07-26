@@ -10,7 +10,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="16dp"
         app:cardElevation="3dp"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,12 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="16dp"
                 android:id="@+id/dataCard"
-                android:background="@color/cardview_dark_background"
+                android:theme="@style/CustomCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:theme="@style/TextStyle"
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -36,7 +38,6 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/archivo_black"
                     android:text="Absence History"
-                    android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -44,18 +45,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:theme="@style/TextStyle"
                     android:id="@+id/tvDates"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/archivo"
+                    android:gravity="center_horizontal"
                     android:text="None"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"

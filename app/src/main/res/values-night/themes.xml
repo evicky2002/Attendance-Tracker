@@ -28,6 +28,10 @@
     <style name="CustomTheme">
         <item name="backgroundTint">@color/project_dark_blue</item>
     </style>
+    <style name="CustomCard">
+        <item name="backgroundTint">@color/project_dark_blue</item>
+    </style>
+
 
 
 </resources>
