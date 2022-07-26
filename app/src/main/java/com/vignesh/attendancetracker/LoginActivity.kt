@@ -101,8 +101,11 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user: FirebaseUser? = mFirebaseAuth.currentUser
         if(user == null){
+            Log.d(TAG, "new user")
             return
         }else{
+            Log.d(TAG, "old user")
+            Log.d(TAG, user.email.toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

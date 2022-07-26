@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.firebase.ui.auth.ui.ProgressView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import com.vignesh.attendancetracker.fragments.DashboardFragment
 import com.vignesh.attendancetracker.fragments.HomeFragment
 import java.security.AccessController.getContext
@@ -28,6 +29,7 @@ import java.security.AccessController.getContext
 class MainActivity : AppCompatActivity() {
     var progressBar: ProgressBar? = null
     private var tvWait:TextView? = null
+    private var bottom:MaterialCardView? = null
     private lateinit var myApplication: GlobalStorage
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -42,10 +44,13 @@ class MainActivity : AppCompatActivity() {
         hideSystemBars()
         tvWait = findViewById(R.id.tvWait)
         progressBar = findViewById(R.id.progressBar)
+        bottom = findViewById(R.id.bottom)
         progressBar?.setVisibility(View.VISIBLE);
         tvWait?.visibility = View.VISIBLE
+        bottom?.visibility = View.INVISIBLE
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottom?.visibility = View.INVISIBLE
         homeFragment = HomeFragment()
         dashboardFragment = DashboardFragment()
         sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE)
@@ -58,6 +63,8 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.flFragment,homeFragment)
                     commit()
+                    bottom?.visibility = View.VISIBLE
+                    bottom?.visibility = View.VISIBLE
                     tvWait?.visibility = View.INVISIBLE
                     progressBar?.setVisibility(View.GONE);
                 }},3000
