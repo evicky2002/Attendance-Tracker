@@ -56,21 +56,25 @@ class SubjectUpdateCardAdapter(private val mList: ArrayList<NewSubject>, private
         holder.btnUpdate?.setOnClickListener{
             it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             var count = userObject?.subjectsList?.get(position)?.totalAbsentCount?.toInt()
-            count = count?.plus(temp)
             if(temp>0){
+                count = count?.plus(temp)
                 for(i in 1..temp){
                     val map = mapOf("1" to getCurrentDate())
                     GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker?.add(map)
                 }
             }else if(temp<0){
+                val arraySize = GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker?.size
                 val pos = temp + (temp*-2)
-                Log.d(TAG,"here")
-                Log.d(TAG,"pos : $pos")
-                Log.d(TAG,"size : ${userObject?.subjectsList?.get(position)?.dateTracker?.size as Int}")
-                for (i in pos downTo 1){
-                    GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker
-                        ?.removeAt((userObject!!.subjectsList.get(position).dateTracker?.size as Int) - 1)
+                if(pos <= arraySize as Int){
+                    count = count?.minus(pos)
+                    for (i in pos downTo 1){
+                        GlobalStorage.userObject?.subjectsList?.get(position)?.dateTracker
+                            ?.removeAt((userObject!!.subjectsList.get(position).dateTracker?.size as Int) - 1)
+                    }
+                }else{
+                    Toast.makeText(context,"Invalid Attempt",Toast.LENGTH_SHORT).show()
                 }
+
             }
             GlobalStorage.userObject?.subjectsList?.get(position)?.totalAbsentCount = count.toString()
             holder.tvSubjectCardCount?.text = "0"
