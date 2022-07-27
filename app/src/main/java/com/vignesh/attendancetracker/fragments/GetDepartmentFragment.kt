@@ -3,14 +3,12 @@ package com.vignesh.attendancetracker.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.WindowCompat
 import com.google.android.material.button.MaterialButton
 import com.vignesh.attendancetracker.R
 

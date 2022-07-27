@@ -1,28 +1,18 @@
 package com.vignesh.attendancetracker
 
-import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.vignesh.attendancetracker.fragments.GetDepartmentFragment
-import com.vignesh.attendancetracker.fragments.GetSemesterFragment
 
 class GetPreferencesActivity : AppCompatActivity() {
     private var TAG = "GetPreferences"
-    private lateinit var myApplication: GlobalStorage
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +22,7 @@ class GetPreferencesActivity : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE)
 
-        val getDepartmentFragment: GetDepartmentFragment = GetDepartmentFragment()
+        val getDepartmentFragment= GetDepartmentFragment()
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, getDepartmentFragment).commit()
         }

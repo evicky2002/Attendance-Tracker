@@ -1,7 +1,8 @@
 package com.vignesh.attendancetracker
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -13,10 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.vignesh.attendancetracker.dataModels.Semester
 import com.vignesh.attendancetracker.dataModels.User
 import com.vignesh.attendancetracker.fragments.DashboardFragment
@@ -26,18 +23,14 @@ import com.vignesh.attendancetracker.networkActivity.NetworkService
 
 class MainActivity : AppCompatActivity() {
     private var TAG = "NetworkService"
+    private lateinit var  sharedPreferences: SharedPreferences
 
-    private var networkService = NetworkService(this)
-
-    private lateinit var myApplication: GlobalStorage
-    private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var db: FirebaseFirestore = Firebase.firestore
-
+    private lateinit var networkService: NetworkService
 
     private var semesterObject: Semester? = null
-    private var userObject: com.vignesh.attendancetracker.dataModels.User? = null
+    private var userObject: User? = null
 
-    var progressBar: ProgressBar? = null
+    private var progressBar: ProgressBar? = null
     private var tvWait:TextView? = null
     private var bottom:MaterialCardView? = null
     private lateinit var homeFragment: HomeFragment
@@ -47,12 +40,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreferences = getSharedPreferences("USER_PREFERENCE", Context.MODE_PRIVATE)
+        networkService = NetworkService(this, sharedPreferences.getString("DEPARTMENT","dept") as String, sharedPreferences.getString("SEMESTER","sem") as String)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         hideSystemBars()
         tvWait = findViewById(R.id.tvWait)
         progressBar = findViewById(R.id.progressBar)
         bottom = findViewById(R.id.bottom)
-        progressBar?.setVisibility(View.VISIBLE);
+        progressBar?.setVisibility(View.VISIBLE)
         tvWait?.visibility = View.VISIBLE
         bottom?.visibility = View.INVISIBLE
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -107,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             bottom?.visibility = View.VISIBLE
             bottom?.visibility = View.VISIBLE
             tvWait?.visibility = View.INVISIBLE
-            progressBar?.setVisibility(View.GONE);
+            progressBar?.setVisibility(View.GONE)
         }
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){

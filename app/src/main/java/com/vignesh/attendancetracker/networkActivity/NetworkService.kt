@@ -1,24 +1,24 @@
 package com.vignesh.attendancetracker.networkActivity
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vignesh.attendancetracker.GlobalStorage
 import com.vignesh.attendancetracker.dataModels.NewSubject
 import com.vignesh.attendancetracker.dataModels.Semester
 import com.vignesh.attendancetracker.dataModels.Subject
 import com.vignesh.attendancetracker.dataModels.User
 
-open class NetworkService(context: Context) {
+open class NetworkService(context: Context, department: String, semester: String) {
+    private var department = department
+    private var semester = semester
     private var TAG = "NetworkService"
     private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var db: FirebaseFirestore = Firebase.firestore
-    private var semesterObject: Semester? = null
-    private var userObject: User? = null
 
     interface LoadStorageListener {
         fun onResponse(response: Semester?)
@@ -35,8 +35,9 @@ open class NetworkService(context: Context) {
     }
 
     open fun loadStorage(loadStorageListener: LoadStorageListener){
-        db.collection("departments").document("CSE").collection("semesters")
-            .document("semesterOne").collection("subjects")
+        Log.d(TAG,"Load Storage : Started")
+        db.collection("departments").document(department).collection("semesters")
+            .document(semester).collection("subjects")
             .get()
             .addOnSuccessListener { result ->
                 Log.d(TAG,"Load Storage : Result Obtained")
@@ -52,8 +53,8 @@ open class NetworkService(context: Context) {
                     )
                 }
                 Log.d(TAG,"Load Storage : Your algorithm")
-                loadStorageListener.onResponse(Semester(list))
                 Log.d(TAG,"Load Storage : Finished")
+                loadStorageListener.onResponse(Semester(list))
             }
             .addOnFailureListener { exception ->
                 loadStorageListener.onError("No semester object")
@@ -81,8 +82,8 @@ open class NetworkService(context: Context) {
             User(list)
         )
             .addOnSuccessListener { result ->
-                updateUserListener.onResponse(User(list))
                 Log.d(TAG,"Upload user : Finished")
+                updateUserListener.onResponse(User(list))
             }
             .addOnFailureListener { exception ->
                 updateUserListener.onError("User object not updated")
@@ -106,12 +107,12 @@ open class NetworkService(context: Context) {
                             ,map.get("subjectName").toString(),map.get("subjectTotalHours").toString(),map.get("totalAbsentCount").toString(),date)
                     )
                 }
+                Log.d(TAG,"Get old user : finished")
                 getOldUserListener.onResponse(User(list))
-                Log.d("GlobalStorage","Get old user : finished")
             }
             .addOnFailureListener { exception ->
                 getOldUserListener.onError("No user retreived")
-                Log.d("GlobalStorage","Failure")
+                Log.d(TAG,"Failure")
             }
     }
 

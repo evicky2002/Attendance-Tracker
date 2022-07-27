@@ -29,20 +29,20 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val myDialog: Dialog = Dialog(context)
+        val myDialog = Dialog(context)
         myDialog.setContentView(R.layout.history_dialog)
         myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         holder.tvSubjectDataCardName?.text = userObject?.subjectsList?.get(position)?.subjectName
         holder.tvSubjectDataCount?.text = userObject?.subjectsList?.get(position)?.totalAbsentCount
-        var totalHours = mList.get(position).subjectTotalHours.toInt()
-        var totalAbsentCount = mList.get(position).totalAbsentCount.toInt()
-        var remainingHours = (totalHours - totalAbsentCount)
-        var percentage : Double = ( remainingHours.toDouble()/ totalHours.toDouble())* 100
+        val totalHours = mList.get(position).subjectTotalHours.toInt()
+        val totalAbsentCount = mList.get(position).totalAbsentCount.toInt()
+        val remainingHours = (totalHours - totalAbsentCount)
+        val percentage : Double = ( remainingHours.toDouble()/ totalHours.toDouble())* 100
         Log.d(TAG,totalHours.toString())
         Log.d(TAG,totalAbsentCount.toString())
         Log.d(TAG,remainingHours.toString())
         Log.d(TAG,percentage.toString())
-        var roundedPercentage = percentage.toInt()
+        val roundedPercentage = percentage.toInt()
         holder.dataCard?.setBackgroundColor(ContextCompat.getColor(context, R.color.project_yellow))
 
         if(roundedPercentage < 75.0){
@@ -59,7 +59,6 @@ class SubjectDataCardAdapter(private val mList: ArrayList<NewSubject>, private v
                 var string = ""
                 val tvDates = myDialog.findViewById<TextView>(R.id.tvDates)
                 for(i in array){
-                    val map = i
                     string+="\n\n"
                     string+=i.getValue(1.toString())
                 }
