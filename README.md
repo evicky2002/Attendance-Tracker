@@ -7,7 +7,7 @@ This is an Android Application tailored for the students of **Anna University** 
 ### Architecture and patterns used
 
 * **MVVM Architecture** - All of the data manipulation is purely done with data models.
-* Also incorporated the **"one activity mulitiple fragments"** as much as possible throught out the project.
+* Also incorporated **"one activity mulitiple fragments"** as much as possible throughout the project.
 
 ### Authentication
 
